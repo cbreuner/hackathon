@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import edu.csumb.partyon.R;
 import edu.csumb.partyon.fragments.DashboardFragment;
+import edu.csumb.partyon.fragments.FriendsFragment;
 
 /**
  * Created by Tobias on 20.11.2015.
@@ -47,6 +48,13 @@ public class MainActivity extends AppCompatActivity {
                             fragment = new DashboardFragment();
                         }
                         tag = DashboardFragment.TAG;
+                        break;
+                    case R.id.drawer_friends:
+                        fragment = getSupportFragmentManager().findFragmentByTag(FriendsFragment.TAG);
+                        if (fragment == null) {
+                            fragment = new FriendsFragment();
+                        }
+                        tag = FriendsFragment.TAG;
                         break;
                     default:
                         fragment = getSupportFragmentManager().findFragmentByTag(DashboardFragment.TAG);

@@ -16,7 +16,7 @@ import edu.csumb.partyon.R;
  */
 public class DashboardFragment extends Fragment {
 
-    public static final String TAG = "MainFragment";
+    public static final String TAG = "DashboardFragment";
 
     private Toolbar toolbar;
 
@@ -35,7 +35,8 @@ public class DashboardFragment extends Fragment {
         if (actionBar != null) {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(R.string.app_title);
+            //actionBar.setTitle(R.string.app_title);
+            actionBar.setTitle(R.string.dashboard_title);
         }
     }
 }

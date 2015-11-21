@@ -21,4 +21,6 @@
         <item name="android:orientation">vertical</item>
     </style>
 
+    <color name="accent_translucent">#3d9cca</color>
+
 </resources>
