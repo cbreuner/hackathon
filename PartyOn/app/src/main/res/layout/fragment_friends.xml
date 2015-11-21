@@ -6,11 +6,37 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ListView
-        android:id="@android:id/list"
+    <RelativeLayout
+        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:paddingBottom="?attr/actionBarSize">
+
+        <Button
+            android:theme="@style/GreenMaterialButton"
+            android:id="@+id/friends_invite_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:text="@string/friends_invite_btn"
+            android:layout_marginBottom="15dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone" />
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_above="@id/friends_invite_btn"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
+
+    </RelativeLayout>
 
 
     <!-- TODO: Add empty state -->

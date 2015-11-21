@@ -70,14 +70,14 @@ public class MainActivity extends AppCompatActivity {
                         tag = DashboardFragment.TAG;
                         break;
                     case R.id.drawer_party:
-                        if(AppState.getInstance().partyActive){
+                        if (AppState.getInstance().partyActive) {
                             fragment = getSupportFragmentManager().findFragmentByTag(PartyFragment.TAG);
                             if (fragment == null) {
                                 fragment = new PartyFragment();
                             }
                             tag = PartyFragment.TAG;
                             break;
-                        }else{
+                        } else {
                             drawerLayout.closeDrawers();
                             newPartyFragment();
                             return true;
@@ -160,6 +160,20 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragment, NewPartyFragment.TAG)
+                .commit();
+    }
+
+    public void partyFragment(){
+        navView.getMenu().findItem(R.id.drawer_party).setChecked(true);
+
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(PartyFragment.TAG);
+        if (fragment == null) {
+            fragment = new PartyFragment();
+        }
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment, PartyFragment.TAG)
                 .commit();
     }
 

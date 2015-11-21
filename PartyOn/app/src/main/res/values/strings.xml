@@ -36,4 +36,5 @@
     <string name="newparty_invite_friends">Invite your friends!</string>
     <string name="newparty_intro_title">Awesome!</string>
     <string name="newparty_intro_message">Time to start a party!</string>
+    <string name="friends_invite_btn">Invite to party!</string>
 </resources>
