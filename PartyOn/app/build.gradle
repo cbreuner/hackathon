@@ -30,4 +30,5 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile 'io.realm:realm-android:0.85.0'
+    compile 'com.loopj.android:android-async-http:1.4.9'
 }

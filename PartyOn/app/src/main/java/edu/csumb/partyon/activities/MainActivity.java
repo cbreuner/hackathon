@@ -1,5 +1,6 @@
 package edu.csumb.partyon.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import edu.csumb.partyon.R;
 import edu.csumb.partyon.fragments.DashboardFragment;
 import edu.csumb.partyon.fragments.FriendsFragment;
+import edu.csumb.partyon.service.PersistentService;
 
 /**
  * Created by Tobias on 20.11.2015.
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        startService(new Intent(this, PersistentService.class));
         setupDrawerLayout();
         loadFragment();
     }

@@ -13,4 +13,5 @@
     <string name="drawer_user">User Account</string>
     <string name="drawer_party">New Party</string>
     <string name="dashboard_title">Home</string>
+    <string name="drawer_logout">Log out</string>
 </resources>

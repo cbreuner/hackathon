@@ -51,7 +51,7 @@ public class FriendsArrayAdapter extends ArrayAdapter<Friend> {
         tvName.setText(items.get(position).getName());
 
         if(items.get(position).getImageUrl() != null && !items.get(position).getImageUrl().isEmpty()){
-            //TODO: Load image here?
+            //TODO: Load image here? -> needs to be done after facebook integration
         }
 
         return cView;
