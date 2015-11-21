@@ -4,33 +4,42 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import edu.csumb.partyon.R;
-import edu.csumb.partyon.activities.MainActivity;
+import edu.csumb.partyon.constants.Constants;
 
 /**
- * Created by Tobias on 20.11.2015.
+ * Created by Tobias on 21.11.2015.
  */
-public class DashboardFragment extends Fragment {
+public class NewPartyFragment extends Fragment {
 
-    public static final String TAG = "DashboardFragment";
+    public static final String TAG = "NewPartyFragment";
 
     private Toolbar toolbar;
-    private CardView newPartyCv;
+
+    public NewPartyFragment(){}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View view = inflater.inflate(R.layout.fragment_newparty, container, false);
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        newPartyCv = (CardView) view.findViewById(R.id.dashboard_newparty);
-        newPartyCv.setOnClickListener(newPartyListener);
         initToolbar();
+        loadFriends();
         return view;
+    }
+
+    private void loadFriends(){
+        Bundle args = new Bundle();
+        args.putBoolean(Constants.COMPACT_KEY, true);
+
+        Fragment fragment = new FriendsFragment();
+        fragment.setArguments(args);
+
+        getChildFragmentManager().beginTransaction().add(R.id.newparty_friends_container, fragment).commit();
     }
 
     private void initToolbar() {
@@ -41,14 +50,7 @@ public class DashboardFragment extends Fragment {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
             actionBar.setDisplayHomeAsUpEnabled(true);
             //actionBar.setTitle(R.string.app_title);
-            actionBar.setTitle(R.string.dashboard_title);
+            actionBar.setTitle(R.string.newparty_title);
         }
     }
-
-    private View.OnClickListener newPartyListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            ((MainActivity)getActivity()).newPartyFragment();
-        }
-    };
 }

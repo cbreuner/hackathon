@@ -13,10 +13,11 @@ import edu.csumb.partyon.utils.CustomDialogBuilder;
 
 /**
  * Created by Tobias on 21.11.2015.
+ * TODO: Create UI etc
  */
 public class AboutDialog extends DialogFragment {
 
-    public static final String TAG = "UserAccountDialog";
+    public static final String TAG = "AboutDialog";
 
     public AboutDialog(){}
 

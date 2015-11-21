@@ -12,14 +12,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import edu.csumb.partyon.AppState;
 import edu.csumb.partyon.R;
 import edu.csumb.partyon.fragments.DashboardFragment;
 import edu.csumb.partyon.fragments.FriendsFragment;
+import edu.csumb.partyon.fragments.NewPartyFragment;
+import edu.csumb.partyon.fragments.PartyFragment;
 import edu.csumb.partyon.fragments.dialogs.AboutDialog;
 import edu.csumb.partyon.fragments.dialogs.SettingsDialog;
 import edu.csumb.partyon.fragments.dialogs.UserAccountDialog;
 import edu.csumb.partyon.service.PersistentService;
 import edu.csumb.partyon.utils.CustomDialogBuilder;
+import io.realm.Realm;
 
 /**
  * Created by Tobias on 20.11.2015.
@@ -27,11 +31,16 @@ import edu.csumb.partyon.utils.CustomDialogBuilder;
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
+    private NavigationView navView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Realm realm = Realm.getInstance(this);
+
+        //TODO: Check if party is active and update AppState
 
         startService(new Intent(this, PersistentService.class));
         setupDrawerLayout();
@@ -41,8 +50,9 @@ public class MainActivity extends AppCompatActivity {
     private void setupDrawerLayout() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        NavigationView view = (NavigationView) findViewById(R.id.navigation_view);
-        view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navView = (NavigationView) findViewById(R.id.navigation_view);
+        navView.getMenu().findItem(R.id.drawer_party).setTitle(AppState.getInstance().partyActive ? R.string.drawer_party : R.string.drawer_party_new);
+        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 menuItem.setChecked(true);
@@ -59,6 +69,19 @@ public class MainActivity extends AppCompatActivity {
                         }
                         tag = DashboardFragment.TAG;
                         break;
+                    case R.id.drawer_party:
+                        if(AppState.getInstance().partyActive){
+                            fragment = getSupportFragmentManager().findFragmentByTag(PartyFragment.TAG);
+                            if (fragment == null) {
+                                fragment = new PartyFragment();
+                            }
+                            tag = PartyFragment.TAG;
+                            break;
+                        }else{
+                            drawerLayout.closeDrawers();
+                            newPartyFragment();
+                            return true;
+                        }
                     case R.id.drawer_friends:
                         fragment = getSupportFragmentManager().findFragmentByTag(FriendsFragment.TAG);
                         if (fragment == null) {
@@ -124,6 +147,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void newPartyFragment(){
+        navView.getMenu().findItem(R.id.drawer_party).setChecked(true);
+
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(NewPartyFragment.TAG);
+        if (fragment == null) {
+            fragment = new NewPartyFragment();
+        }
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment, NewPartyFragment.TAG)
+                .commit();
     }
 
     private void showLogoutDialog(){

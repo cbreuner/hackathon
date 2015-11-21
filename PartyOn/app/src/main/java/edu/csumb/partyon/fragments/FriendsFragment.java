@@ -5,12 +5,14 @@ import android.support.v4.app.ListFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import edu.csumb.partyon.R;
 import edu.csumb.partyon.adapters.FriendsArrayAdapter;
+import edu.csumb.partyon.constants.Constants;
 import edu.csumb.partyon.db.Friend;
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -23,8 +25,24 @@ public class FriendsFragment extends ListFragment {
 
     private Toolbar toolbar;
 
+    private boolean compact = false;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle args = getArguments();
+        if(args != null)
+            compact = args.getBoolean(Constants.COMPACT_KEY);
+
+        if(compact)
+            Log.d("PartyOn", "Friends was loaded compact!");
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if(compact)
+            return super.onCreateView(inflater, container, savedInstanceState);
+
         View view = inflater.inflate(R.layout.fragment_friends, container, false);
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         initToolbar();
@@ -50,8 +68,8 @@ public class FriendsFragment extends ListFragment {
         realm.beginTransaction();
 
         Friend friend = realm.createObject(Friend.class);
-        friend.setId(002);
-        friend.setName("Smith");
+        friend.setId(003);
+        friend.setName("Frank");
 
         realm.commitTransaction();
     }
@@ -63,7 +81,7 @@ public class FriendsFragment extends ListFragment {
         if (actionBar != null) {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(R.string.app_title);
+            actionBar.setTitle(R.string.friends_title);
         }
     }
 }
