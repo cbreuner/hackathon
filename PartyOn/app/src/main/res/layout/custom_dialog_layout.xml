@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/customd_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dip"
+    android:layout_marginEnd="8dip"
+    android:orientation="vertical">
+
+    <LinearLayout android:id="@+id/customd_title_cont"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical|start"
+        android:minHeight="60dip"
+        android:background="@color/colorPrimary">
+        <ImageView android:id="@+id/customd_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="8dip"
+            android:layout_marginLeft="15dip"
+            android:src="@null"
+            android:contentDescription="@string/app_name"/>
+        <com.android.internal.widget.DialogTitle android:id="@+id/customd_title"
+            style="@android:style/TextAppearance.Holo.DialogWindowTitle"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dip" />
+
+        <ImageButton android:id="@+id/customd_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@null"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="15dp"
+            android:visibility="gone"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/app_name"/>
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/customd_content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <TextView android:id="@+id/customd_message"
+            style="?android:attr/textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="12dip"
+            android:paddingEnd="12dip"
+            android:paddingTop="8dip"
+            android:layout_marginLeft="12dip"
+            android:paddingBottom="8dip"
+            android:textIsSelectable="true"/>
+    </LinearLayout>
+
+    <FrameLayout android:id="@+id/customd_extra_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+    </FrameLayout>
+
+</LinearLayout>

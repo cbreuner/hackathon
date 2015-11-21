@@ -14,4 +14,13 @@
     <string name="drawer_party">New Party</string>
     <string name="dashboard_title">Home</string>
     <string name="drawer_logout">Log out</string>
+    <string name="useraccount_title">User Account</string>
+    <string name="useraccount_close_btn">Close</string>
+    <string name="useraccount_placeholder">Placeholder here</string>
+    <string name="logout_message">Are you sure you want to log out?</string>
+    <string name="logout_title">Log out</string>
+    <string name="logout_positive_btn">Log out</string>
+    <string name="logout_negative_btn">Cancel</string>
+    <string name="settings_placeholder">Settings placeholder</string>
+    <string name="about_placeholder">About placeholder</string>
 </resources>

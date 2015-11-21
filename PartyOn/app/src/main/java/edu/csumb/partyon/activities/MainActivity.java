@@ -1,8 +1,10 @@
 package edu.csumb.partyon.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,7 +15,11 @@ import android.view.MenuItem;
 import edu.csumb.partyon.R;
 import edu.csumb.partyon.fragments.DashboardFragment;
 import edu.csumb.partyon.fragments.FriendsFragment;
+import edu.csumb.partyon.fragments.dialogs.AboutDialog;
+import edu.csumb.partyon.fragments.dialogs.SettingsDialog;
+import edu.csumb.partyon.fragments.dialogs.UserAccountDialog;
 import edu.csumb.partyon.service.PersistentService;
+import edu.csumb.partyon.utils.CustomDialogBuilder;
 
 /**
  * Created by Tobias on 20.11.2015.
@@ -42,9 +48,10 @@ public class MainActivity extends AppCompatActivity {
                 menuItem.setChecked(true);
 
                 Fragment fragment;
+                DialogFragment dialog;
                 String tag;
 
-                switch (menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
                     case R.id.drawer_home:
                         fragment = getSupportFragmentManager().findFragmentByTag(DashboardFragment.TAG);
                         if (fragment == null) {
@@ -59,6 +66,25 @@ public class MainActivity extends AppCompatActivity {
                         }
                         tag = FriendsFragment.TAG;
                         break;
+                    case R.id.drawer_user:
+                        dialog = new UserAccountDialog();
+                        dialog.show(getSupportFragmentManager(), UserAccountDialog.TAG);
+                        menuItem.setChecked(false);
+                        return true;
+                    case R.id.drawer_settings:
+                        dialog = new SettingsDialog();
+                        dialog.show(getSupportFragmentManager(), SettingsDialog.TAG);
+                        menuItem.setChecked(false);
+                        return true;
+                    case R.id.drawer_about:
+                        dialog = new AboutDialog();
+                        dialog.show(getSupportFragmentManager(), AboutDialog.TAG);
+                        menuItem.setChecked(false);
+                        return true;
+                    case R.id.drawer_logout:
+                        showLogoutDialog();
+                        menuItem.setChecked(false);
+                        return true;
                     default:
                         fragment = getSupportFragmentManager().findFragmentByTag(DashboardFragment.TAG);
                         if (fragment == null) {
@@ -98,5 +124,25 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showLogoutDialog(){
+        CustomDialogBuilder builder = new CustomDialogBuilder(this);
+        builder.setTitle(R.string.logout_title)
+            .setMessage(R.string.logout_message)
+            .setIcon(R.drawable.ic_warning_white_24dp)
+            .setNegativeButton(R.string.logout_negative_btn, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            })
+            .setPositiveButton(R.string.logout_positive_btn, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //TODO: Truncate DB, log out of FB
+                }
+            })
+            .show();
     }
 }
