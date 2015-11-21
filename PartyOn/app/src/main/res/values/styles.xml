@@ -1,0 +1,24 @@
+<resources>
+
+    <style name="AppTheme" parent="BaseTheme">
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>  <!-- TODO -->
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>  <!-- TODO -->
+        <item name="colorControlHighlight">#076b9a</item>  <!-- TODO -->
+        <item name="colorAccent">#3d9cca</item> <!-- TODO -->
+        <item name="selectableItemBackground">@drawable/selectable_item_background</item>
+        <item name="android:selectableItemBackground">@drawable/selectable_item_background</item>
+    </style>
+
+    <style name="Widget.CardContent" parent="android:Widget">
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingTop">24dp</item>
+        <item name="android:paddingBottom">24dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PartyOn</string>
+    <string name="app_title">PartyOn</string>
+
+    <string name="dashboard_placeholder">This is the dashboard!</string>
+
+    <string name="drawer_home">Home</string>
+    <string name="drawer_friends">Friends</string>
+</resources>
