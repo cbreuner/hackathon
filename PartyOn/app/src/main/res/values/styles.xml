@@ -5,9 +5,9 @@
     </style>
 
     <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>  <!-- TODO -->
+        <item name="colorPrimary">#ffffff</item>  <!-- TODO -->
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>  <!-- TODO -->
-        <item name="colorControlHighlight">#076b9a</item>  <!-- TODO -->
+        <item name="colorControlHighlight">#039BE5</item>  <!-- TODO -->
         <item name="colorAccent">#3d9cca</item> <!-- TODO -->
         <item name="selectableItemBackground">@drawable/selectable_item_background</item>
         <item name="android:selectableItemBackground">@drawable/selectable_item_background</item>
