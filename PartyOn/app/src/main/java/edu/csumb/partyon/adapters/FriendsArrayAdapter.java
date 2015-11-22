@@ -1,19 +1,28 @@
 package edu.csumb.partyon.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import edu.csumb.partyon.R;
 import edu.csumb.partyon.db.Friend;
 import edu.csumb.partyon.listeners.InvitesChangedListener;
+import edu.csumb.partyon.utils.ImageUtils;
 import io.realm.RealmResults;
 
 /**
@@ -25,10 +34,12 @@ public class FriendsArrayAdapter extends ArrayAdapter<Friend> {
     private boolean[] invited;
     private int resource;
     private InvitesChangedListener listener;
+    private ImageLoader imageLoader;
 
-    public FriendsArrayAdapter(Context context, int resource, InvitesChangedListener listener) {
+    public FriendsArrayAdapter(Context context, int resource, ImageLoader imageLoader, InvitesChangedListener listener) {
         super(context, resource);
         this.resource = resource;
+        this.imageLoader = imageLoader;
         this.listener = listener;
     }
 
@@ -41,9 +52,10 @@ public class FriendsArrayAdapter extends ArrayAdapter<Friend> {
 
     public List<String> getInvitedIDs(){
         List<String> res = new ArrayList<>();
-        for(int i = 0; i < res.size(); i++){
-            if(invited[i])
+        for(int i = 0; i < items.size(); i++){
+            if(invited[i]) {
                 res.add(items.get(i).getId());
+            }
         }
         return res;
     }
@@ -79,11 +91,19 @@ public class FriendsArrayAdapter extends ArrayAdapter<Friend> {
         }
 
         TextView tvName = (TextView) cView.findViewById(R.id.row_name);
+        ImageView ivAvatar = (ImageView) cView.findViewById(R.id.row_avatar);
 
         tvName.setText(items.get(position).getName());
 
         if(items.get(position).getImageUrl() != null && !items.get(position).getImageUrl().isEmpty()){
-            //TODO: Load image here? -> needs to be done after facebook integration
+            ImageSize targetSize = new ImageSize(300, 300);
+            imageLoader.displayImage(items.get(position).getImageUrl(), ivAvatar, new SimpleImageLoadingListener() {
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    Bitmap rounded = ImageUtils.getRoundedCornerBitmap(loadedImage, 300);
+                    ((ImageView) view).setImageBitmap(rounded);
+                }
+            });
         }
 
         FloatingActionButton fab = (FloatingActionButton) cView.findViewById(R.id.row_fab);

@@ -27,7 +27,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="What should be here??"
+                android:text="@string/notification_loading"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:layout_toEndOf="@id/row_avatar"
                 android:layout_marginStart="20dp"

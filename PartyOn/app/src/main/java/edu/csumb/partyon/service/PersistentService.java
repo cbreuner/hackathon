@@ -9,6 +9,8 @@ import android.util.Log;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import edu.csumb.partyon.AppState;
+
 /**
  * Created by Tobias on 21.11.2015.
  * Should check notifications, invites, etc
@@ -21,6 +23,7 @@ public class PersistentService extends Service {
     private static long INTERVAL_MS = INTERVAL * 1000 * 60;
 
     private Timer timer = null;
+    private AppState appState;
 
     @Nullable
     @Override
@@ -31,6 +34,7 @@ public class PersistentService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("PartyOn", "Persistent service started.");
+        appState = AppState.getInstance();
 
         /* This didn't really work too well, didn't like being canceled
         if(timer != null)
