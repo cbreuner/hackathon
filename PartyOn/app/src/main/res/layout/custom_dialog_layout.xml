@@ -14,7 +14,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical|start"
         android:minHeight="60dip"
-        android:background="@color/colorPrimary">
+        android:background="@drawable/gradient_background">
         <ImageView android:id="@+id/customd_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
