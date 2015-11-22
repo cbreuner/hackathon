@@ -38,7 +38,6 @@ public class NotificationsArrayAdapter extends ArrayAdapter<Notification> {
             itemData[i] = new JSONObject(newItems.get(i).getJson());
         }
         notifyDataSetChanged();
-        Log.d("PartyOn", "Size: " + newItems.size());
     }
 
     @Override
@@ -63,7 +62,6 @@ public class NotificationsArrayAdapter extends ArrayAdapter<Notification> {
         ImageView rowAvatar = (ImageView) cView.findViewById(R.id.row_avatar);
 
         try {
-            Log.d("PartyOn JSON", "Raw json: " + itemData[position].toString());
             rowTitle.setText(Html.fromHtml(itemData[position].getString("title")));
             rowMessage.setText(Html.fromHtml(itemData[position].getString("message")));
         } catch (JSONException e) {

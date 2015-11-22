@@ -1,22 +1,23 @@
 package edu.csumb.partyon.service;
 
-import android.Manifest;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,17 +29,18 @@ import edu.csumb.partyon.AppState;
  * Should only remain running while party is active
  * Is used for reporting GPS location and compass direction
  */
-public class PartyService extends Service implements SensorEventListener, LocationListener {
+public class PartyService extends Service implements SensorEventListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     // Number of seconds between each ping
     private static final int INTERVAL = 60;
     @SuppressWarnings("FieldCanBeLocal")
     private static long INTERVAL_MS = INTERVAL * 1000;
 
-    private AppState appState;
     private Timer timer;
-    private LocationManager lm;
     private SensorManager sm;
+    private AppState appState;
+    private LocationRequest request;
+    private GoogleApiClient googleApiClient;
     private Sensor accelerometer, magnometer;
 
     private float[] mGravity;
@@ -56,12 +58,6 @@ public class PartyService extends Service implements SensorEventListener, Locati
 
         appState = AppState.getInstance();
 
-        if (lm == null)
-            lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        //noinspection ResourceType
-        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, INTERVAL_MS, 10, this);
-
         if(sm == null)
             sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
@@ -72,6 +68,18 @@ public class PartyService extends Service implements SensorEventListener, Locati
 
         sm.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI);
         sm.registerListener(this, magnometer, SensorManager.SENSOR_DELAY_UI);
+
+        request = new LocationRequest();
+        request.setInterval(INTERVAL_MS)
+                .setFastestInterval(0)
+                .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        googleApiClient.connect();
 
         if(timer == null)
             timer = new Timer();
@@ -117,23 +125,23 @@ public class PartyService extends Service implements SensorEventListener, Locati
     }
 
     @Override
+    public void onConnected(Bundle bundle) {
+        LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, request, this);
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
     public void onLocationChanged(Location location) {
         appState.lastLocation = location;
-        Log.d("PartyOn", "Location logged: " + location.toString());
+        Log.d("PartyOn GPS", "New location! " + location.toString());
     }
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
+    public void onConnectionFailed(ConnectionResult connectionResult) {
 
     }
 

@@ -60,7 +60,7 @@ public class LocateFriendDialog extends DialogFragment {
     private void handleGPS(Location target){
         Location currentLoc = AppState.getInstance().lastLocation;
         float azimuth = AppState.getInstance().lastAzimut;
-        if(currentLoc == null || azimuth == -1){
+        if(currentLoc == null || azimuth == -1 || target == null){
             //TODO: Show error
             return;
         }

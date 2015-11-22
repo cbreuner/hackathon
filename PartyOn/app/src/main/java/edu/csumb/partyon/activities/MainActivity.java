@@ -24,6 +24,7 @@ import java.util.List;
 
 import edu.csumb.partyon.AppState;
 import edu.csumb.partyon.R;
+import edu.csumb.partyon.constants.Constants;
 import edu.csumb.partyon.db.Notification;
 import edu.csumb.partyon.db.PartyMember;
 import edu.csumb.partyon.fragments.DashboardFragment;
@@ -62,6 +63,18 @@ public class MainActivity extends AppCompatActivity {
         startService(new Intent(this, PersistentService.class));
         setupDrawerLayout();
         loadFragment();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if(intent.hasExtra(Constants.INVITE_INTENT)){
+            if(intent.getIntExtra(Constants.INVITE_INTENT, -1) == Constants.INVITE_INTENT_ACCEPT){
+                //TODO: Join party
+            }else{
+                finish();
+            }
+        }
     }
 
     private void setupDrawerLayout() {
