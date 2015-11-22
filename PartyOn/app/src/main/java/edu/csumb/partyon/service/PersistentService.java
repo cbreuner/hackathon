@@ -15,6 +15,7 @@ import com.facebook.Profile;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Timer;
@@ -106,19 +107,19 @@ public class PersistentService extends Service {
             Log.e("PartyOn", "User not logged in!");
             return;
         }
-        /*
-        APIClient.getInvites(AccessToken.getCurrentAccessToken().getUserId(), new AsyncHttpResponseHandler() {
+
+        APIClient.showInvites(AccessToken.getCurrentAccessToken().getUserId(), new JsonHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                if (response.has("inviteId")) {
+                    try {
+                        buildInviteNotification(response.getString("hostName"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
-        */
     }
 
     @Override

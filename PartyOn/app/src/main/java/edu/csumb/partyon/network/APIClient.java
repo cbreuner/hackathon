@@ -3,6 +3,7 @@ package edu.csumb.partyon.network;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.SyncHttpClient;
 
 /**
  * Created by Tobias on 21.11.2015.
@@ -13,8 +14,9 @@ public class APIClient {
     private static final String NOTIFICATION_ENDPOINT = "/createNotification.php";
     private static final String ANSWER_ENDPOINT = "/setAnswer.php";
     private static final String GET_INVITE_ENDPOINT = "/getInvite.php";
+    private static final String SHOW_INVITE_ENDPOINT = "/showInvites.php";
 
-    private static AsyncHttpClient client = new AsyncHttpClient();
+    private static SyncHttpClient client = new SyncHttpClient();
 
     public static void setAnswer(String notificationId, int answer, String data, AsyncHttpResponseHandler handler) {
         RequestParams params = new RequestParams();
@@ -42,6 +44,12 @@ public class APIClient {
         params.add("startDate", startDate);
         params.add("data", data);
         client.get(BASE_URL + NOTIFICATION_ENDPOINT, params, handler);
+    }
+
+    public static void showInvites(String FBID, AsyncHttpResponseHandler handler){
+        RequestParams params = new RequestParams();
+        params.add("FBID", FBID);
+        client.get(BASE_URL + SHOW_INVITE_ENDPOINT, params, handler);
     }
 
     public static void getInvites(String FBID, AsyncHttpResponseHandler handler){
