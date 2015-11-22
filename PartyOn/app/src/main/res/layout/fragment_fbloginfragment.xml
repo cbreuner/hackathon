@@ -20,7 +20,8 @@
         android:textColor="@android:color/white"
         android:text="@string/app_name"
         android:layout_marginTop="10dp"
-        android:textStyle="bold|italic"/>
+        android:textStyle="bold|italic"
+        android:id="@+id/textView" />
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
@@ -29,4 +30,14 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="30dp"
         android:padding="15dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:background="@drawable/partyonlogo1"
+        android:layout_marginBottom="47dp"
+        android:layout_above="@+id/login_logo"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
