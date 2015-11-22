@@ -9,14 +9,24 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONObject;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
+import cz.msebera.android.httpclient.Header;
 import edu.csumb.partyon.AppState;
 import edu.csumb.partyon.R;
 import edu.csumb.partyon.activities.MainActivity;
 import edu.csumb.partyon.constants.Constants;
 import edu.csumb.partyon.db.Notification;
+import edu.csumb.partyon.network.APIClient;
 
 /**
  * Created by Tobias on 21.11.2015.
@@ -89,6 +99,28 @@ public class PersistentService extends Service {
         nm.notify(0, inviteNotification);
     }
 
+    private void checkForInvites(){
+        if(!FacebookSdk.isInitialized())
+            FacebookSdk.sdkInitialize(this);
+        if(AccessToken.getCurrentAccessToken() == null){
+            Log.e("PartyOn", "User not logged in!");
+            return;
+        }
+        /*
+        APIClient.getInvites(AccessToken.getCurrentAccessToken().getUserId(), new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+        */
+    }
+
     @Override
     public void onDestroy() {
         Log.d("PartyOn", "Persistent service stopped.");
@@ -99,6 +131,7 @@ public class PersistentService extends Service {
         @Override
         public void run() {
             Log.d("PartyOn", "Checking for invites!");
+            checkForInvites();
         }
     }
 }
