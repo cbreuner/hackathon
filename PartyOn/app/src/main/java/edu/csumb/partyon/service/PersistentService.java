@@ -60,7 +60,7 @@ public class PersistentService extends Service {
 
         @Override
         public void run() {
-            Log.d("PartyOn", "Checking for notifications and invites!");
+            Log.d("PartyOn", "Checking for invites!");
         }
     }
 }

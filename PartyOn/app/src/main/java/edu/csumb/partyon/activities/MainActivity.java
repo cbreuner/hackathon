@@ -23,6 +23,7 @@ import edu.csumb.partyon.fragments.PartyFragment;
 import edu.csumb.partyon.fragments.dialogs.AboutDialog;
 import edu.csumb.partyon.fragments.dialogs.SettingsDialog;
 import edu.csumb.partyon.fragments.dialogs.UserAccountDialog;
+import edu.csumb.partyon.service.PartyService;
 import edu.csumb.partyon.service.PersistentService;
 import edu.csumb.partyon.utils.CustomDialogBuilder;
 import io.realm.Realm;
@@ -132,7 +133,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadFragment(){
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new DashboardFragment()).commit();
+        if(!AppState.getInstance().partyActive)
+            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new DashboardFragment(), PartyFragment.TAG).commit();
+        else{
+            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new PartyFragment(), PartyFragment.TAG).commit();
+            navView.getMenu().findItem(R.id.drawer_party).setChecked(true);
+        }
     }
 
     @Override
@@ -181,6 +187,8 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragment, PartyFragment.TAG)
                 .commit();
+
+        startService(new Intent(this, PartyService.class));
     }
 
     private void showLogoutDialog(){

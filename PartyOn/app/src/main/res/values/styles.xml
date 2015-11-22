@@ -21,6 +21,10 @@
         <item name="android:orientation">vertical</item>
     </style>
 
+    <style name="TwoWayView">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
     <style name="GreenMaterialButton" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/button_color_green</item>
         <item name="android:textColor">@android:color/white</item>

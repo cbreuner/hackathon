@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,8 +15,10 @@ import android.view.ViewGroup;
 import org.json.JSONException;
 
 import edu.csumb.partyon.R;
+import edu.csumb.partyon.adapters.HorizontalFriendsAdapter;
 import edu.csumb.partyon.adapters.NotificationsArrayAdapter;
 import edu.csumb.partyon.constants.Constants;
+import edu.csumb.partyon.db.Friend;
 import edu.csumb.partyon.db.Notification;
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -27,7 +31,9 @@ public class PartyFragment extends ListFragment {
     public static final String TAG = "PartyFragment";
 
     private Toolbar toolbar;
+    private RecyclerView friendsRecycler;
     private NotificationsArrayAdapter adapter;
+    private HorizontalFriendsAdapter friendsAdapter;
 
     public PartyFragment(){}
 
@@ -35,6 +41,7 @@ public class PartyFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_party, container, false);
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        friendsRecycler = (RecyclerView) view.findViewById(R.id.party_friends);
         initToolbar();
         return view;
     }
@@ -61,6 +68,18 @@ public class PartyFragment extends ListFragment {
             //TODO: Show error
             Log.e("PartyOn", "ERROR", e);
         }
+
+        //TODO: Load friends in party
+        friendsAdapter = new HorizontalFriendsAdapter(getActivity(), friendsRecycler, R.layout.column_friend);
+
+        friendsRecycler.setAdapter(friendsAdapter);
+        LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        friendsRecycler.setLayoutManager(lm);
+
+        RealmResults<Friend> friends = realm.allObjects(Friend.class); //TODO: Run async
+
+        friendsAdapter.update(friends);
+
     }
 
     private void tempData(Realm realm){

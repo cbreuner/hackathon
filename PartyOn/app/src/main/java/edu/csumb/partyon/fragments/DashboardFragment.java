@@ -40,7 +40,6 @@ public class DashboardFragment extends Fragment {
         if (actionBar != null) {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
             actionBar.setDisplayHomeAsUpEnabled(true);
-            //actionBar.setTitle(R.string.app_title);
             actionBar.setTitle(R.string.dashboard_title);
         }
     }

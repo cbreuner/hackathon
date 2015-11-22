@@ -16,6 +16,8 @@
     <string name="drawer_logout">Log out</string>
 
     <string name="friends_placeholder">This is the friends fragment!</string>
+    <string name="friends_invite_btn">Invite to party!</string>
+    <string name="friends_title">Friends</string>
 
     <string name="useraccount_title">User Account</string>
     <string name="useraccount_close_btn">Close</string>
@@ -31,16 +33,17 @@
     <string name="about_placeholder">About placeholder</string>
 
     <string name="newparty_title">New Party</string>
-    <string name="friends_title">Friends</string>
     <string name="newparty_start_btn">Start!</string>
     <string name="newparty_invite_friends">Invite your friends!</string>
     <string name="newparty_intro_title">Awesome!</string>
     <string name="newparty_intro_message">Time to start a party!</string>
-    <string name="friends_invite_btn">Invite to party!</string>
+
     <string name="party_recommendation_title">Recommendations</string>
     <string name="party_recommendation_message">There\'s a great bar 0.7 mi away!</string>
     <string name="party_panic_btn">Help!</string>
     <string name="party_notification_title">Recent Notifications:</string>
-    <string name="party_title">Your party</string>
+    <string name="party_title">Your Party</string>
+
     <string name="notification_loading">Loading...</string>
+    <string name="party_friends_title">Friends in Party:</string>
 </resources>
