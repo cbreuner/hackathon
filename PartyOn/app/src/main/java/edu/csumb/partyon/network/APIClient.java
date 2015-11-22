@@ -9,23 +9,38 @@ import com.loopj.android.http.RequestParams;
  */
 public class APIClient {
     private static final String BASE_URL = "http://107.170.231.224";
-    private static final String GPS_ENDPOINT = "/party";
-    private static final String INVITE_ENDPOINT = "/invites";
-    private static final String NOTIFICATION_ENDPOINT = "/notifications";
+    private static final String INVITE_ENDPOINT = "/createInvite.php";
+    private static final String NOTIFICATION_ENDPOINT = "/createNotification.php";
+    private static final String ANSWER_ENDPOINT = "/setAnswer.php";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 
-    public static void logGPS(RequestParams requestParams, AsyncHttpResponseHandler handler){
-        client.post(BASE_URL + GPS_ENDPOINT, requestParams, handler);
+    public static void setAnswer(String notificationId, Int Answer, String data, AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.add("notificationId", notificationId);
+        params.add("data", data);
+        params.add("answer", answer);
+        client.get(BASE_URL + ANSWER_ENDPOINT, params, handler);
     }
 
-    public static void checkInvites(String userid, AsyncHttpResponseHandler handler){
-        RequestParams params = new RequestParams("userid", userid);
+    public static void createInvite(String FBID, String event, String startDate, String data, Int active, AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.add("FBID", FBID);
+        params.add("event", event);
+        params.add("startDate", startDate);
+        params.add("data", data);
+        params.add("active", active);
         client.get(BASE_URL + INVITE_ENDPOINT, params, handler);
     }
 
-    public static void checkNotifications(String userid, AsyncHttpResponseHandler handler){
-        RequestParams params = new RequestParams("userid", userid);
-        client.get(BASE_URL + INVITE_ENDPOINT, params, handler);
+    public static void createNotification(String FBID, Int inviteId, String type, String startDate, String data, AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.add("FBID", FBID);
+        params.add("inviteId", inviteId);
+        params.add("type", type);
+        params.add("startDate", startDate);
+        params.add("data", data);
+        client.get(BASE_URL + NOTIFICATION_ENDPOINT, params, handler);
     }
+
 }
