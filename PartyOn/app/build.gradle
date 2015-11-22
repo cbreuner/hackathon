@@ -4,9 +4,13 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
+    repositories {
+        mavenCentral()
+    }
+
     defaultConfig {
         applicationId "edu.csumb.partyon"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -31,4 +35,6 @@ dependencies {
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile 'io.realm:realm-android:0.85.0'
     compile 'com.loopj.android:android-async-http:1.4.9'
+    compile 'com.facebook.android:facebook-android-sdk:4.+'
+
 }

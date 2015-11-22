@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">PartyOn</string>
     <string name="app_title">PartyOn</string>
+    <string name="app_id">1633219956938901</string>
 
     <string name="dashboard_title">Home</string>
     <string name="dashboard_placeholder">This is the dashboard!</string>
@@ -14,6 +15,7 @@
     <string name="drawer_party_new">New Party</string>
     <string name="drawer_party">Your Party</string>
     <string name="drawer_logout">Log out</string>
+    <string name="splashscreen_text">SplashScreen</string>
 
     <string name="friends_placeholder">This is the friends fragment!</string>
     <string name="friends_invite_btn">Invite to party!</string>
