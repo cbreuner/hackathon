@@ -26,8 +26,14 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="RedMaterialButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/button_color_red</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
     <color name="accent_translucent">#3d9cca</color>
     <color name="button_color">#3d9cca</color>
     <color name="button_color_green">#2f9f39</color>
+    <color name="button_color_red">#9f2f2f</color>
 
 </resources>

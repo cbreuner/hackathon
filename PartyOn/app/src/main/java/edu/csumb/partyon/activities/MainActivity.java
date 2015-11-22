@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.List;
+
 import edu.csumb.partyon.AppState;
 import edu.csumb.partyon.R;
 import edu.csumb.partyon.fragments.DashboardFragment;
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         //TODO: Check if party is active and update AppState
 
+        //TODO: Move this to SplashScreen (?)
         startService(new Intent(this, PersistentService.class));
         setupDrawerLayout();
         loadFragment();
@@ -163,8 +166,11 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void partyFragment(){
-        navView.getMenu().findItem(R.id.drawer_party).setChecked(true);
+    public void partyFragment(List<String> invites){
+        AppState.getInstance().partyActive = true;
+        MenuItem partyMenu = navView.getMenu().findItem(R.id.drawer_party);
+        partyMenu.setChecked(true);
+        partyMenu.setTitle(R.string.drawer_party);
 
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(PartyFragment.TAG);
         if (fragment == null) {

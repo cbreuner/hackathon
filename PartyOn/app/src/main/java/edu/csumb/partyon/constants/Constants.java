@@ -11,4 +11,8 @@ public class Constants {
     public enum INVITE_TYPE {
         PARTY
     }
+
+    public enum NOTIFICATION_TYPE {
+        INFO, WARNING, CRITICAL, EMERGENCY
+    }
 }

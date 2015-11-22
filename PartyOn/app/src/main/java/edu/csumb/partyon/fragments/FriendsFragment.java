@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.util.List;
+
 import edu.csumb.partyon.R;
 import edu.csumb.partyon.activities.MainActivity;
 import edu.csumb.partyon.adapters.FriendsArrayAdapter;
@@ -27,6 +29,7 @@ public class FriendsFragment extends ListFragment implements InvitesChangedListe
 
     private Toolbar toolbar;
     private Button inviteBtn;
+    private FriendsArrayAdapter adapter;
 
     private boolean compact = false;
 
@@ -55,7 +58,7 @@ public class FriendsFragment extends ListFragment implements InvitesChangedListe
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        FriendsArrayAdapter adapter = new FriendsArrayAdapter(getActivity(), R.layout.row_friends, this);
+        adapter = new FriendsArrayAdapter(getActivity(), R.layout.row_friends, this);
         setListAdapter(adapter);
 
         Realm realm = Realm.getInstance(getActivity());
@@ -67,6 +70,10 @@ public class FriendsFragment extends ListFragment implements InvitesChangedListe
             results = realm.allObjects(Friend.class);
         }
         adapter.update(results);
+    }
+
+    public List<String> getInvites(){
+        return adapter.getInvitedIDs();
     }
 
     private void tempData(Realm realm){
@@ -105,8 +112,7 @@ public class FriendsFragment extends ListFragment implements InvitesChangedListe
     private View.OnClickListener inviteBtnListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            // TODO: Set invites
-            ((MainActivity)getActivity()).partyFragment();
+            ((MainActivity)getActivity()).partyFragment(getInvites());
         }
     };
 }
