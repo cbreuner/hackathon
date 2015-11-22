@@ -1,5 +1,7 @@
 package edu.csumb.partyon;
 
+import android.location.Location;
+
 /**
  * Created by Tobias on 20.11.2015.
  * Singleton state-keeping for the app
@@ -7,6 +9,8 @@ package edu.csumb.partyon;
 public class AppState {
 
     public boolean partyActive = false;
+    public Location lastLocation;
+    public float lastAzimut = -1;
 
     private static AppState instance;
 

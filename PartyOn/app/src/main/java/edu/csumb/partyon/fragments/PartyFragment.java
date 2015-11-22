@@ -14,12 +14,15 @@ import android.view.ViewGroup;
 
 import org.json.JSONException;
 
+import edu.csumb.partyon.AppState;
 import edu.csumb.partyon.R;
 import edu.csumb.partyon.adapters.HorizontalFriendsAdapter;
 import edu.csumb.partyon.adapters.NotificationsArrayAdapter;
 import edu.csumb.partyon.constants.Constants;
 import edu.csumb.partyon.db.Friend;
 import edu.csumb.partyon.db.Notification;
+import edu.csumb.partyon.fragments.dialogs.LocateFriendDialog;
+import edu.csumb.partyon.utils.RecyclerItemClickListener;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -75,6 +78,12 @@ public class PartyFragment extends ListFragment {
         friendsRecycler.setAdapter(friendsAdapter);
         LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         friendsRecycler.setLayoutManager(lm);
+        friendsRecycler.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                openTrackingDialog(position);
+            }
+        }));
 
         RealmResults<Friend> friends = realm.allObjects(Friend.class); //TODO: Run async
 
@@ -101,6 +110,14 @@ public class PartyFragment extends ListFragment {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(R.string.party_title);
         }
+    }
+
+    private void openTrackingDialog(int pos){
+        Bundle args = new Bundle();
+        args.putString(Constants.FRIEND_ID, friendsAdapter.getItem(pos).getId());
+        LocateFriendDialog fragment = new LocateFriendDialog();
+        fragment.setArguments(args);
+        fragment.show(getChildFragmentManager(), LocateFriendDialog.TAG);
     }
 
 }

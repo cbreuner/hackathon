@@ -48,6 +48,10 @@ public class HorizontalFriendsAdapter extends RecyclerView.Adapter<HorizontalFri
         return items == null ? 0 : items.size();
     }
 
+    public Friend getItem(int pos){
+        return items == null ? null : items.get(pos);
+    }
+
     public static class SimpleViewHolder extends RecyclerView.ViewHolder {
         public final TextView name;
 

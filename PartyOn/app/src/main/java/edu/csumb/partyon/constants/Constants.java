@@ -6,6 +6,7 @@ package edu.csumb.partyon.constants;
 public class Constants {
 
     public static final String COMPACT_KEY = "compact";
+    public static final String FRIEND_ID = "friend_id";
 
     //TODO: More types??
     public enum INVITE_TYPE {

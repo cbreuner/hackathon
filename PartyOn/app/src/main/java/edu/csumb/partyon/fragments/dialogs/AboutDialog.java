@@ -27,7 +27,7 @@ public class AboutDialog extends DialogFragment {
         //AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         CustomDialogBuilder builder = new CustomDialogBuilder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.fragment_useraccount, null);
+        View view = inflater.inflate(R.layout.fragment_about, null);
 
         builder.setCustomView(view)
                 .setTitle(getResources().getString(R.string.useraccount_title))
