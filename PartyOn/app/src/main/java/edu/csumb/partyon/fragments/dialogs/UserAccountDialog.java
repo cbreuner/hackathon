@@ -7,6 +7,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
+
+import com.facebook.Profile;
 
 import edu.csumb.partyon.R;
 import edu.csumb.partyon.utils.CustomDialogBuilder;
@@ -27,7 +30,10 @@ public class UserAccountDialog extends DialogFragment {
         //AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         CustomDialogBuilder builder = new CustomDialogBuilder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.fragment_settings, null);
+        View view = inflater.inflate(R.layout.fragment_useraccount, null);
+
+        if(Profile.getCurrentProfile() != null)
+            ((TextView)view.findViewById(R.id.user_name)).setText(Profile.getCurrentProfile().getName());
 
         builder.setCustomView(view)
                 .setTitle(getResources().getString(R.string.useraccount_title))

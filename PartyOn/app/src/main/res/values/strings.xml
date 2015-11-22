@@ -53,4 +53,5 @@
     <string name="locatefriend_title">Locate Friend</string>
     <string name="locatefriend_close">Close</string>
     <string name="locatefriend_loading">Still loading GPS\nYou might want to try again later</string>
+    <string name="useraccount_loading">Loading..</string>
 </resources>

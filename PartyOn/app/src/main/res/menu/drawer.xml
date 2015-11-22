@@ -18,9 +18,9 @@
             android:title="@string/drawer_friends"
             android:icon="@drawable/ic_face_black_24dp"/>
         <item
-
+            android:id="@+id/section"
             android:title="@string/drawer_section">
-
+            <menu>
                 <item
                     android:id="@+id/drawer_user"
                     android:title="@string/drawer_user"
@@ -37,7 +37,7 @@
                     android:id="@+id/drawer_logout"
                     android:title="@string/drawer_logout"
                     android:icon="@drawable/ic_power_settings_new_black_24dp"/>
-            
+            </menu>
         </item>
     </group>
 </menu>
