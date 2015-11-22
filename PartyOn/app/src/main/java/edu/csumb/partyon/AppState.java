@@ -14,6 +14,8 @@ public class AppState {
     public Location lastLocation;
     public float lastAzimut = -1;
     public LoginManager loginManager;
+    public String sInvites;
+    public String[] aInvites;
 
     private static AppState instance;
 

@@ -63,6 +63,8 @@ public class NotificationsArrayAdapter extends ArrayAdapter<Notification> {
         ImageView rowAvatar = (ImageView) cView.findViewById(R.id.row_avatar);
 
         try {
+            Log.d("PartyOn JSON", "Raw json: " + itemData[position].toString());
+            rowTitle.setText(Html.fromHtml(itemData[position].getString("title")));
             rowMessage.setText(Html.fromHtml(itemData[position].getString("message")));
         } catch (JSONException e) {
             e.printStackTrace();

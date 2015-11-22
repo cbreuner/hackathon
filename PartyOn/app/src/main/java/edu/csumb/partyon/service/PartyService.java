@@ -1,8 +1,10 @@
 package edu.csumb.partyon.service;
 
+import android.Manifest;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -13,6 +15,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import java.util.Timer;
@@ -56,7 +59,6 @@ public class PartyService extends Service implements SensorEventListener, Locati
         if (lm == null)
             lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        //TODO: Check if permission is given
         //noinspection ResourceType
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, INTERVAL_MS, 10, this);
 
@@ -104,7 +106,7 @@ public class PartyService extends Service implements SensorEventListener, Locati
                 float orientation[] = new float[3];
                 SensorManager.getOrientation(R, orientation);
                 appState.lastAzimut = orientation[0];
-                Log.d("PartyOn", "Azimut logged: " + orientation[0]);
+                //Log.d("PartyOn", "Azimut logged: " + orientation[0]);
             }
         }
     }

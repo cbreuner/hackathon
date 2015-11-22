@@ -24,6 +24,8 @@ import java.util.List;
 
 import edu.csumb.partyon.AppState;
 import edu.csumb.partyon.R;
+import edu.csumb.partyon.db.Notification;
+import edu.csumb.partyon.db.PartyMember;
 import edu.csumb.partyon.fragments.DashboardFragment;
 import edu.csumb.partyon.fragments.FriendsFragment;
 import edu.csumb.partyon.fragments.NewPartyFragment;
@@ -34,7 +36,9 @@ import edu.csumb.partyon.fragments.dialogs.UserAccountDialog;
 import edu.csumb.partyon.service.PartyService;
 import edu.csumb.partyon.service.PersistentService;
 import edu.csumb.partyon.utils.CustomDialogBuilder;
+import edu.csumb.partyon.utils.Utils;
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by Tobias on 20.11.2015.
@@ -43,17 +47,18 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private NavigationView navView;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        try{Log.d("PartyOn[ma]Access Token", AccessToken.getCurrentAccessToken().getToken());}catch (NullPointerException npe){}
+        realm = Realm.getInstance(this);
 
         //TODO: Check if party is active and update AppState
 
-        //TODO: Move this to SplashScreen (?)
+        //TODO: Move this to SplashScreen (?) -> no, what about used id?
         startService(new Intent(this, PersistentService.class));
         setupDrawerLayout();
         loadFragment();
@@ -193,9 +198,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void partyFragment(List<String> invites){
         AppState.getInstance().partyActive = true;
+        AppState.getInstance().sInvites = Utils.join(invites, ',');
+        AppState.getInstance().aInvites = invites.toArray(new String[invites.size()]);
         MenuItem partyMenu = navView.getMenu().findItem(R.id.drawer_party);
         partyMenu.setChecked(true);
         partyMenu.setTitle(R.string.drawer_party);
+
+        realm.beginTransaction();
+        realm.allObjects(PartyMember.class).clear();
+        realm.allObjects(Notification.class).clear();
+        realm.commitTransaction();
 
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(PartyFragment.TAG);
         if (fragment == null) {
