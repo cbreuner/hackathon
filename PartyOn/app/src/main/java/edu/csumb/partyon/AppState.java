@@ -6,6 +6,8 @@ package edu.csumb.partyon;
  */
 public class AppState {
 
+    public boolean partyActive = false;
+
     private static AppState instance;
 
     private AppState(){}

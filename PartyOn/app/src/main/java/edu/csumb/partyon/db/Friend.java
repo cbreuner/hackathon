@@ -9,18 +9,18 @@ import io.realm.annotations.Required;
  */
 public class Friend extends RealmObject {
     @PrimaryKey
-    private int id;
+    private String id;
     @Required
     private String name;
     private String imageUrl;
 
     public Friend(){}
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

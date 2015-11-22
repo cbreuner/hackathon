@@ -3,17 +3,52 @@
     <string name="app_title">PartyOn</string>
     <string name="app_id">1633219956938901</string>
 
+    <string name="dashboard_title">Home</string>
     <string name="dashboard_placeholder">This is the dashboard!</string>
 
     <string name="drawer_home">Home</string>
     <string name="drawer_friends">Friends</string>
-    <string name="friends_placeholder">This is the friends fragment!</string>
     <string name="drawer_about">About</string>
     <string name="drawer_settings">Settings</string>
     <string name="drawer_section">More Actions:</string>
     <string name="drawer_user">User Account</string>
-    <string name="drawer_party">New Party</string>
-    <string name="dashboard_title">Home</string>
+    <string name="drawer_party_new">New Party</string>
+    <string name="drawer_party">Your Party</string>
     <string name="drawer_logout">Log out</string>
+<<<<<<< HEAD
     <string name="splashscreen_text">SplashScreen</string>
+=======
+
+    <string name="friends_placeholder">This is the friends fragment!</string>
+    <string name="friends_invite_btn">Invite to party!</string>
+    <string name="friends_title">Friends</string>
+
+    <string name="useraccount_title">User Account</string>
+    <string name="useraccount_close_btn">Close</string>
+    <string name="useraccount_placeholder">Placeholder here</string>
+
+    <string name="logout_message">Are you sure you want to log out?</string>
+    <string name="logout_title">Log out</string>
+    <string name="logout_positive_btn">Log out</string>
+    <string name="logout_negative_btn">Cancel</string>
+
+    <string name="settings_placeholder">Settings placeholder</string>
+
+    <string name="about_placeholder">About placeholder</string>
+
+    <string name="newparty_title">New Party</string>
+    <string name="newparty_start_btn">Start!</string>
+    <string name="newparty_invite_friends">Invite your friends!</string>
+    <string name="newparty_intro_title">Awesome!</string>
+    <string name="newparty_intro_message">Time to start a party!</string>
+
+    <string name="party_recommendation_title">Recommendations</string>
+    <string name="party_recommendation_message">There\'s a great bar 0.7 mi away!</string>
+    <string name="party_panic_btn">Help!</string>
+    <string name="party_notification_title">Recent Notifications:</string>
+    <string name="party_title">Your Party</string>
+
+    <string name="notification_loading">Loading...</string>
+    <string name="party_friends_title">Friends in Party:</string>
+>>>>>>> cb3bb0aa65bb58ea4651437c067a9efec882253b
 </resources>

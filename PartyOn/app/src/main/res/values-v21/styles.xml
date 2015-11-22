@@ -23,4 +23,14 @@
         <item name="android:windowSharedElementsUseOverlay">false</item>
     </style>
 
+    <style name="GreenMaterialButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:colorButtonNormal">@color/button_color_green</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="RedMaterialButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:colorButtonNormal">@color/button_color_red</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 </resources>

@@ -8,7 +8,7 @@ import com.loopj.android.http.RequestParams;
  * Created by Tobias on 21.11.2015.
  */
 public class APIClient {
-    private static final String BASE_URL = "";
+    private static final String BASE_URL = "http://107.170.231.224";
     private static final String GPS_ENDPOINT = "/party";
     private static final String INVITE_ENDPOINT = "/invites";
     private static final String NOTIFICATION_ENDPOINT = "/notifications";

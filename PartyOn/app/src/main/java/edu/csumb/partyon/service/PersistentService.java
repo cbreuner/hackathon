@@ -20,7 +20,7 @@ public class PersistentService extends Service {
     @SuppressWarnings("FieldCanBeLocal")
     private static long INTERVAL_MS = INTERVAL * 1000 * 60;
 
-    private Timer timer;
+    private Timer timer = null;
 
     @Nullable
     @Override
@@ -32,10 +32,15 @@ public class PersistentService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("PartyOn", "Persistent service started.");
 
+        /* This didn't really work too well, didn't like being canceled
         if(timer != null)
             timer.cancel();
         else
+            timer = new Timer();*/
+
+        if(timer == null)
             timer = new Timer();
+
         timer.scheduleAtFixedRate(new PingTask(), 0, INTERVAL_MS);
 
         return START_STICKY;
@@ -55,7 +60,7 @@ public class PersistentService extends Service {
 
         @Override
         public void run() {
-            Log.d("PartyOn", "Checking for notifications and invites!");
+            Log.d("PartyOn", "Checking for invites!");
         }
     }
 }
