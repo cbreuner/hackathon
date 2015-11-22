@@ -18,7 +18,7 @@
 
         <!-- Activities: -->
         <activity
-            android:name=".activities.SplashScreen"
+            android:name=".activities.SplashScreenActivity"
             android:windowSoftInputMode="stateHidden"
             android:label="@string/app_name" >
             <intent-filter>
@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.MainActivity" />
-        <activity android:name=".activities.fbLogin" />
+        <activity android:name=".activities.LoginActivity" />
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges=
                 "keyboard|keyboardHidden|screenLayout|screenSize|orientation"

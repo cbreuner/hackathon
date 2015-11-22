@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+    
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/profile_placeholder_3"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/splashscreen_logo"/>
+
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/splashscreen_text" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/splashscreen_logo"
+        android:textColor="@android:color/white"
+        android:text="@string/splashscreen_text"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold|italic"/>
 
-
-</LinearLayout>
+</RelativeLayout>
