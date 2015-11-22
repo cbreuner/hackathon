@@ -9,8 +9,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.facebook.AccessToken;
+import com.facebook.Profile;
 
 import java.util.List;
 
@@ -41,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Realm realm = Realm.getInstance(this);
+        try{Log.d("PartyOn[ma]Access Token", AccessToken.getCurrentAccessToken().getToken());}catch (NullPointerException npe){}
 
         //TODO: Check if party is active and update AppState
 
@@ -55,6 +63,17 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         navView = (NavigationView) findViewById(R.id.navigation_view);
+
+        String name = "Loading..", uid = "Loading..";
+        if (Profile.getCurrentProfile() != null) {
+            name = Profile.getCurrentProfile().getFirstName();
+            uid = Profile.getCurrentProfile().getId();
+        }
+
+        View v = navView.getHeaderView(0);
+        ((TextView) v.findViewById(R.id.header_name)).setText(name);
+        ((TextView) v.findViewById(R.id.header_email)).setText(uid);
+
         navView.getMenu().findItem(R.id.drawer_party).setTitle(AppState.getInstance().partyActive ? R.string.drawer_party : R.string.drawer_party_new);
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -205,7 +224,11 @@ public class MainActivity extends AppCompatActivity {
             .setPositiveButton(R.string.logout_positive_btn, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    //TODO: Truncate DB, log out of FB
+                    //TODO: Truncate DB, DONE: log out of FB
+                    AppState.getInstance().loginManager.logOut();
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
             })
             .show();

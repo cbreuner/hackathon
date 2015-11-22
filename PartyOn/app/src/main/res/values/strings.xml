@@ -2,6 +2,7 @@
     <string name="app_name">PartyOn</string>
     <string name="app_title">PartyOn</string>
     <string name="app_id">1633219956938901</string>
+    <string name="key_hash">sN3DAlRI7nwSc5/318ndmF9JaBc=</string>
 
     <string name="dashboard_title">Home</string>
     <string name="dashboard_placeholder">This is the dashboard!</string>
@@ -45,9 +46,10 @@
     <string name="party_panic_btn">Help!</string>
     <string name="party_notification_title">Recent Notifications:</string>
     <string name="party_title">Your Party</string>
+    <string name="party_friends_title">Friends in Party:</string>
 
     <string name="notification_loading">Loading...</string>
-    <string name="party_friends_title">Friends in Party:</string>
+
     <string name="locatefriend_title">Locate Friend</string>
     <string name="locatefriend_close">Close</string>
     <string name="locatefriend_loading">Still loading GPS\nYou might want to try again later</string>

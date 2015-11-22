@@ -3,6 +3,7 @@ package edu.csumb.partyon.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
@@ -28,6 +29,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         appState = AppState.getInstance();
         appState.loginManager = LoginManager.getInstance();
+        try{Log.d("PartyOn[ss]Access Token", AccessToken.getCurrentAccessToken().getToken());}catch (NullPointerException npe){}
         redirect(AccessToken.getCurrentAccessToken() != null);
     }
 

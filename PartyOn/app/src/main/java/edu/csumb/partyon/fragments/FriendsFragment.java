@@ -5,11 +5,22 @@ import android.support.v4.app.ListFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
 import java.util.List;
 
 import edu.csumb.partyon.R;
@@ -27,6 +38,7 @@ import io.realm.RealmResults;
 public class FriendsFragment extends ListFragment implements InvitesChangedListener {
     public static final String TAG = "FriendsFragment";
 
+    private Realm realm;
     private Toolbar toolbar;
     private Button inviteBtn;
     private FriendsArrayAdapter adapter;
@@ -61,35 +73,55 @@ public class FriendsFragment extends ListFragment implements InvitesChangedListe
         adapter = new FriendsArrayAdapter(getActivity(), R.layout.row_friends, this);
         setListAdapter(adapter);
 
-        Realm realm = Realm.getInstance(getActivity());
+        realm = Realm.getInstance(getActivity());
 
         RealmResults<Friend> results = realm.allObjects(Friend.class); //TODO: Run async
 
-        if(results.size() == 0){ //TODO: Remove this, only for testing
-            tempData(realm);
-            results = realm.allObjects(Friend.class);
-        }
         adapter.update(results);
+
+        refreshFriends(); //TODO: Timeout on the refresh rate?
     }
 
     public List<String> getInvites(){
         return adapter.getInvitedIDs();
     }
 
-    private void tempData(Realm realm){
-        realm.beginTransaction();
+    private void refreshFriends(){
+        try{Log.d("PartyOn[ff]Access Token", AccessToken.getCurrentAccessToken().getToken() + ", exp: " + AccessToken.getCurrentAccessToken().getExpires().toString() + ", perm: " + Arrays.toString(AccessToken.getCurrentAccessToken().getPermissions().toArray()));}catch (NullPointerException npe){}
+        new GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                "/me/friends?fields=id,first_name,picture",
+                null,
+                HttpMethod.GET,
+                new GraphRequest.Callback() {
+                    @Override
+                    public void onCompleted(GraphResponse response) {
+                        Log.d("PartyOn", "This: " + response.toString());
+                        try {
+                            JSONArray data = response.getJSONArray();
 
-        Friend friend = realm.createObject(Friend.class);
-        friend.setId("1");
-        friend.setName("Placeholder");
-        friend = realm.createObject(Friend.class);
-        friend.setId("2");
-        friend.setName("Frank");
-        friend = realm.createObject(Friend.class);
-        friend.setId("3");
-        friend.setName("John");
+                            realm.beginTransaction();
 
-        realm.commitTransaction();
+                            Friend friend;
+                            for(int i = 0; i < data.length(); i++){
+                                friend = realm.createObject(Friend.class);
+                                friend.setId(data.getJSONObject(i).getString("id"));
+                                friend.setName(data.getJSONObject(i).getString("first_name"));
+                                friend.setImageUrl(data.getJSONObject(i).getJSONObject("picture").getJSONObject("data").getString("url"));
+                            }
+
+                            realm.commitTransaction();
+
+                            RealmResults<Friend> results = realm.allObjects(Friend.class); //TODO: Run async
+
+                            adapter.update(results);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            realm.cancelTransaction();
+                        }
+                    }
+                }
+        ).executeAsync();
     }
 
     private void initToolbar() {

@@ -8,22 +8,23 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <TextView
+        android:id="@+id/header_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/email"
+        android:layout_above="@+id/header_email"
         android:layout_marginLeft="@dimen/spacing_large"
         android:layout_marginStart="@dimen/spacing_large"
-        android:text="Tobias Lønnerød Madsen"
+        android:text="Loading..."
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
     <TextView
-        android:id="@+id/email"
+        android:id="@+id/header_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/spacing_large"
         android:layout_marginStart="@dimen/spacing_large"
         android:layout_marginBottom="@dimen/spacing_large"
-        android:text="TobbenTM (m@dsen.tv)"
+        android:text="Loading..."
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
 </RelativeLayout>
