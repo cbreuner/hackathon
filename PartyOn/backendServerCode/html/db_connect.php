@@ -3,8 +3,8 @@ ini_set('display_errors', 1);
 
 define("HOST", "localhost");                                       // The host you want to connect to.
 define("USER", "root");                                                          // The database username.
-define("PASSWORD", "telemark");                        // The database password.
-define("DATABASE", "party_on");          // The database name.
+define("PASSWORD", "  ");                        // The database password.
+define("DATABASE", "  ");          // The database name.
 
 $mysqli = new mysqli("localhost", USER, PASSWORD, DATABASE);
 if ($mysqli->connect_error) {

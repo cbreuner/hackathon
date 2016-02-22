@@ -9,7 +9,7 @@ import com.loopj.android.http.SyncHttpClient;
  * Created by Tobias on 21.11.2015.
  */
 public class APIClient {
-    private static final String BASE_URL = "http://107.170.231.224";
+    private static final String BASE_URL = "   ";
     private static final String INVITE_ENDPOINT = "/createInvite.php";
     private static final String NOTIFICATION_ENDPOINT = "/createNotification.php";
     private static final String ANSWER_ENDPOINT = "/setAnswer.php";
